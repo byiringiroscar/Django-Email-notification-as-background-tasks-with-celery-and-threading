@@ -39,6 +39,9 @@ def subscribe(request):
     if request.user not in messageboard.subscribers.all():
         messageboard.subscribers.add(request.user)
         messages.success(request, 'You are now Subscribed! ')
+    else:
+        messageboard.subscribers.remove(request.user)
+        messages.success(request, 'You are now Unsubscribed! ')
     
     return redirect('messageboard')
     
