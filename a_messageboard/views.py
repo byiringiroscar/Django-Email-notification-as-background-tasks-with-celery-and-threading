@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.core.mail import EmailMessage
 from .models import *
 from .forms import *
+import threading
 
 # Create your views here.
 
@@ -56,8 +57,17 @@ def send_email(message):
     for subscriber in subscribers:
         subject = f'New Message from {message.author.profile.name}'
         body = f'Hello {message.author.profile.name}: {message.body} \n\nRegards from\nMy Message Board'
-        email = EmailMessage(subject, body, to=[subscriber.email])
-        email.send()
+        email_thread = threading.Thread(
+            target=send_email_thread, args=(subject, body, subscriber)
+        
+        )
+        email_thread.start()
+        
+
+def send_email_thread(subject, body, subscriber):
+    email = EmailMessage(subject, body, to=[subscriber.email])
+    email.send()
+
 
 
     
