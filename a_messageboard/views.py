@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.mail import EmailMessage
 from .models import *
 from .forms import *
 
@@ -19,6 +20,8 @@ def messageboard_view(request):
                 message.messageboard = messageboard
                 message.author = request.user
                 message.save()
+
+                send_email(message)
         else:
             messages.warning(request, 'You need to be Subscribed! ')
         return redirect('messageboard')
@@ -44,5 +47,18 @@ def subscribe(request):
         messages.success(request, 'You are now Unsubscribed! ')
     
     return redirect('messageboard')
+
+
+def send_email(message):
+    messageboard = message.messageboard
+    subscribers = messageboard.subscribers.all()
+
+    for subscriber in subscribers:
+        subject = f'New Message from {message.author.profile.name}'
+        body = f'Hello {message.author.profile.name}: {message.body} \n\nRegards from\nMy Message Board'
+        email = EmailMessage(subject, body, to=[subscriber.email])
+        email.send()
+
+
     
 
