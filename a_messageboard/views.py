@@ -5,6 +5,7 @@ from django.core.mail import EmailMessage
 from .models import *
 from .forms import *
 import threading
+from .tasks import *
 
 # Create your views here.
 
@@ -50,6 +51,14 @@ def subscribe(request):
     return redirect('messageboard')
 
 
+# make sure to run celery worker when you are using celery
+
+'''
+celery -A a_core worker -P info  # this for single worker for lower workloads
+celery -A a_core worker -P gevent  # this for multiple worker for higher workloads
+celery -A a_core worker -P threads  # 
+
+'''
 def send_email(message):
     messageboard = message.messageboard
     subscribers = messageboard.subscribers.all()
@@ -57,14 +66,7 @@ def send_email(message):
     for subscriber in subscribers:
         subject = f'New Message from {message.author.profile.name}'
         body = f'Hello {message.author.profile.name}: {message.body} \n\nRegards from\nMy Message Board'
-        email_thread = threading.Thread(
-            target=send_email_thread, args=(subject, body, subscriber)
-        
-        )
-        email_thread.start()
-        
-
-
+        send_email_taks.delay(subject, body, subscriber)
 
 
 
