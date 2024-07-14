@@ -64,9 +64,7 @@ def send_email(message):
         email_thread.start()
         
 
-def send_email_thread(subject, body, subscriber):
-    email = EmailMessage(subject, body, to=[subscriber.email])
-    email.send()
+
 
 
 
