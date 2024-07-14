@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import *
 from .forms import *
 
@@ -11,13 +12,18 @@ def messageboard_view(request):
     form = MessageCreateForm()
 
     if request.method == 'POST':
-        form = MessageCreateForm(request.POST)
-        if form.is_valid():
-            message = form.save(commit=False)
-            message.messageboard = messageboard
-            message.author = request.user
-            message.save()
-            return redirect('messageboard')
+        if request.user in messageboard.subscribers.all():
+            form = MessageCreateForm(request.POST)
+            if form.is_valid():
+                message = form.save(commit=False)
+                message.messageboard = messageboard
+                message.author = request.user
+                message.save()
+        else:
+            messages.warning(request, 'You need to be Subscribed! ')
+        return redirect('messageboard')
+
+
 
 
     context = {
