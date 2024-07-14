@@ -1,11 +1,5 @@
 {% extends 'layouts/blank.html' %}
 
-
-
-{% block content %}
-
-{% extends 'layouts/blank.html' %}
-
 {% block content %} 
 
 <wrapper class="block h-[calc(100vh-80px)] pt-8 pb-4 px-4 max-w-7xl mx-auto">
@@ -63,9 +57,9 @@
                 {% endif %} 
                 <div class="block text-sm mb-2">Subscribe to this Message Board to get email notifications and newsletters</div>
                 {% if user in messageboard.subscribers.all %}
-                <a href="{% url 'subscribe' %}" class="inline-block bg-gray-300 hover:bg-red-500 text-white font-bold rounded-full py-3 px-4">Unsubscribe</a>
+                <a href="" class="inline-block bg-gray-300 hover:bg-red-500 text-white font-bold rounded-full py-3 px-4">Unsubscribe</a>
                 {% else %}
-                <a href="{% url 'subscribe' %}" class="inline-block bg-black hover:bg-emerald-500 text-white font-bold rounded-full py-3 px-4">Subscribe</a>
+                <a href="" class="inline-block bg-black hover:bg-emerald-500 text-white font-bold rounded-full py-3 px-4">Subscribe</a>
                 {% endif %}
             </div>
 
@@ -105,7 +99,5 @@
         scrollToBottom();
     };
 </script>
-
-{% endblock %}
 
 {% endblock %}
