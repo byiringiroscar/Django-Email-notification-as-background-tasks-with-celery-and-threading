@@ -19,7 +19,9 @@ def messageboard_view(request):
             message.save()
             return redirect('messageboard')
 
+
     context = {
         'messageboard': messageboard,
+        'form': form,
     }
     return render(request, 'a_messageboard/index.html', context)
