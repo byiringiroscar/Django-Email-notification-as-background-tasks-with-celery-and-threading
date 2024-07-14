@@ -55,6 +55,7 @@ def subscribe(request):
 
 '''
 celery -A a_core worker -P info  # this for single worker for lower workloads
+celery -A a_core worker -P solo -l info -E  # that -E is for monitoring 
 celery -A a_core worker -P gevent  # this for multiple worker for higher workloads
 celery -A a_core worker -P threads  # 
 
