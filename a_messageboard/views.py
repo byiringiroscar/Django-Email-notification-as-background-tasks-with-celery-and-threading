@@ -66,7 +66,7 @@ def send_email(message):
     for subscriber in subscribers:
         subject = f'New Message from {message.author.profile.name}'
         body = f'Hello {message.author.profile.name}: {message.body} \n\nRegards from\nMy Message Board'
-        send_email_taks.delay(subject, body, subscriber)
+        send_email_taks.delay(subject, body, subscriber.email)
 
 
 
