@@ -6,6 +6,7 @@ from .models import *
 from .forms import *
 import threading
 from .tasks import *
+from django.contrib.auth.decorators import user_passes_test
 
 # Create your views here.
 
@@ -70,6 +71,10 @@ def send_email(message):
         send_email_taks.delay(subject, body, subscriber.email)
 
 
+def is_staff(user):
+    return user.is_staff
 
     
-
+@user_passes_test(is_staff)
+def newsletter(request):
+    return render(request, 'a_messageboard/newsletter.html')
