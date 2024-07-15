@@ -13,7 +13,9 @@ def send_email_taks(subject, body, email_address):
 @shared_task(name='monthly_newsletter')
 def send_newsletter():
     subject = 'Monthly Newsletter'
-    subscribers = MessageBoard.objects.get(id=1).subscribers.all()
+    subscribers = MessageBoard.objects.get(id=1).subscribers.filter(
+        profile__newsletter_subscribed=True
+    )
     for subscriber in subscribers:
         body = render_to_string('a_messageboard/newsletter.html', {'name': subscriber.profile.name})
         email = EmailMessage(subject, body, to=[subscriber.email])
