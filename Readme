@@ -14,3 +14,10 @@ celery -A a_core.celery_app flower
 '''
 run this in blowser http://localhost:5555/
 '''
+
+'''
+we use this command to  secure flower with password as it can be containing the sensitive data
+
+celery -A a_core.celery_app flower --basic_auth=admin:Flower123
+
+'''
