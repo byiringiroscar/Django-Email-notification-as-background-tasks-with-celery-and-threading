@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'a_home',
     'a_users',
     'a_messageboard',
+    'django_celery_results',
 ]
 
 SITE_ID = 1
