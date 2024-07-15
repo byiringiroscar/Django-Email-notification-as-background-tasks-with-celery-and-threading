@@ -21,3 +21,10 @@ we use this command to  secure flower with password as it can be containing the 
 celery -A a_core.celery_app flower --basic_auth=admin:Flower123
 
 '''
+
+
+'''
+# celery beat run command
+celery -A a_core beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+
+'''
