@@ -13,7 +13,7 @@
             <td id="email-address" class="pt-4 pb-1 pl-4">
                 {% if user.email %}{{ user.email }}{% else %}No Email{% endif %}
             </td>
-            <td class="pt-4 pb-1 pl-4">
+            <td class="pt-4 pb-1 pl-4 min-w-20">
                 <a id="email-edit" class="cursor-pointer font-medium text-blue-600 hover:underline"
                     hx-get="{% url 'profile-emailchange' %}"
                     hx-target="#email-address"
@@ -55,7 +55,7 @@
                 </div>
             </td>
             <td class="align-top pt-4 pb-1 pl-4">
-                <a href="" class="text-blue-600 font-medium hover:underline">
+                <a href="{% url 'profile-newsletter' %}" class="text-blue-600 font-medium hover:underline">
                     {% if user.profile.newsletter_subscribed %}
                     Cancel
                     {% else %}
