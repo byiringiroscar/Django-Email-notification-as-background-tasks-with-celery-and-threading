@@ -1,0 +1,16 @@
+'''
+celery -A a_core worker -P info  # this for single worker for lower workloads
+celery -A a_core worker -P solo -l info -E  # that -E is for monitoring 
+celery -A a_core worker -P gevent  # this for multiple worker for higher workloads
+celery -A a_core worker -P threads  # 
+
+'''
+
+# run flower
+'''
+celery -A a_core.celery_app flower
+'''
+
+'''
+run this in blowser http://localhost:5555/
+'''
